@@ -1,0 +1,23 @@
+Resources:
+  S3B3U5GC:
+    Type: "AWS::S3::Bucket"
+    DeletionPolicy: Retain
+    Properties:
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: error.html
+Outputs:
+  WebsiteURL:
+    Description: "URL for website hosted on S3"
+    Value: !GetAtt
+      - S3B3U5GC
+      - WebsiteURL
+  S3BucketSecureURL:
+    Description: "Name of S3 bucket to hold website content"
+    Value: !Join
+      - ""
+      - - "https://"
+        - !GetAtt
+          - S3B3U5GC
+          - DomainName
